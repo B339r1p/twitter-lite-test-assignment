@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <title>Twitter (lite)</title>
+
+    <style>
+        .content{
+            background-color: blue;
+            height: 100vh;
+            width: 100%;
+        }
+        .top-header{
+            background-color: red;
+            height: 10%;
+            text-align: center;
+        }
+
+        .tweets{
+            height: 70%;
+            width: 80%;
+            background-color: yellow;
+            margin: 0 10%;
+        }
+
+        .tweet{
+            width: 80%;
+            margin: 0 10%;
+            height: 100%;
+            background-color: blue;
+        }
+
+        .tweet-top{
+            width: 100%;
+            height: 10%;
+            margin-bottom: 1%;
+            background-color: red;
+        }
+
+        .tweet-mid{
+            font-size: large;
+            padding: 3%;
+            width: 94%;
+            height: 62%;
+            margin-bottom: 1%;
+            background-color: red;
+        }
+
+        .tweet-base{
+            width: 100%;
+            height: 20%;
+            background-color: red;
+        }
+
+        img{
+            max-width: 10%;
+            max-height: 5%;
+            float: left;
+        }
+
+        .username{
+            font-weight: bold;
+        }
+
+        .tweet-action{
+            padding-left: 15%;
+            padding-top: 7%;
+            width: 15%;
+            height: 50%;
+            float: left;
+        }
+
+    </style>
+</head>
+<body>
+    <div class="content">
+        <div class="top-header"><h1>Twitter lite</h1></div>
+        <div class="tweets" id="tweets"></div>
+    </div>
+
+
+    <script>
+        fetch("http://127.0.0.1:8000/tweets/tweets/", {
+            method: "POST",
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({
+                text: "simple tweet fron frontend",
+                user: 1
+            })
+        }).then(
+            (data) => {
+                console.log(data)
+            }
+        )
+
+        fetch("http://127.0.0.1:8000/tweets/tweets/")
+        .then(response => response.json())
+        .then(tweets => {
+            let tweetElements = "";
+            tweets.map((tweet) => {
+                tweetElements += `<div class="tweets">
+                    <div class="tweet">
+                        <div class="tweet-top">
+                            <div>
+                                <img src="https://cdn.business2community.com/wp-content/uploads/2017/08/blank-profile-picture-973460_640.png" alt="">
+                            </div>
+                            <span class="username">${tweet.username}</span>
+                        </div>
+                        <div class="tweet-mid">
+                            ${tweet.text}
+                        </div>
+                        <div class="tweet-base">
+                            <div class="tweet-action">
+                                <i class="fa fa-comment"></i>
+                            </div>
+                            <div class="tweet-action">
+                                <i class="fa fa-retweet"></i>
+                            </div>
+                            <div class="tweet-action">
+                                <i class="fa fa-thumbs-up">${tweet.likes}</i>
+                            </div>
+                        </div>
+                    </div>
+                </div><br><br>`
+            })
+        document.getElementById("tweets").innerHTML = tweetElements;
+        })
+
+    </script>
+</body>
+</html>
