@@ -29,3 +29,11 @@ class Retweet(models.Model):
     tweet = models.ForeignKey(Tweet, on_delete=models.CASCADE)
     created_on = models.DateTimeField(auto_now_add=True)
 
+
+class Comment(models.Model):
+    text = models.CharField(max_length = 250)
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    tweet = models.ForeignKey(Tweet, on_delete=models.CASCADE)
+    created_on = models.DateTimeField(auto_now_add=True) 
+
+

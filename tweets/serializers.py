@@ -1,6 +1,6 @@
 from django.contrib.auth.models import User
 from rest_framework import serializers
-from .models import Like, Retweet, Tweet
+from .models import Like, Retweet, Tweet, Comment
 from rest_framework.serializers import ModelSerializer
 
 class TweetSerializer(ModelSerializer):
@@ -27,3 +27,9 @@ class UserSerializer(ModelSerializer):
     class Meta:
         model = User
         exclude = ("password",)
+
+
+class CommentSerializer(ModelSerializer):
+    class Meta:
+        model = Comment
+        fields = '__all__'

@@ -1,4 +1,4 @@
-from tweets.models import Like, Retweet, Tweet
+from tweets.models import Like, Retweet, Tweet, Comment
 from django.contrib import admin
 
 
@@ -9,3 +9,4 @@ class TweetAdmin(admin.ModelAdmin):
 
 admin.site.register(Like)
 admin.site.register(Retweet)
+admin.site.register(Comment)

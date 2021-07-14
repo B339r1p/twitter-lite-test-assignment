@@ -1,9 +1,9 @@
 from django.contrib.auth.models import User
 from django.urls.base import reverse
-from tweets.serializers import LikeSerializer, RetweetSerializer, TweetSerializer, UserSerializer
+from tweets.serializers import LikeSerializer, RetweetSerializer, TweetSerializer, UserSerializer, CommentSerializer
 from django.shortcuts import render, HttpResponse
 from rest_framework import viewsets
-from .models import Like, Retweet, Tweet
+from .models import Like, Retweet, Tweet, Comment
 
 # Create your views here.
 def index(request):
@@ -37,3 +37,10 @@ class UserViewSet(viewsets.ModelViewSet):
     """
     queryset = User.objects.all()
     serializer_class = UserSerializer
+
+class CommentViewSet(viewsets.ModelViewSet):
+    """
+    API endpoint that allows users to be viewed or edited.
+    """
+    queryset = Comment.objects.all()
+    serializer_class = CommentSerializer
